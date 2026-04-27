@@ -1,8 +1,26 @@
+# Chặn các file đã biên dịch (Binary)
 *.class
 bin/
+out/
+
+# Chặn file cấu hình của Eclipse
 .metadata/
-.idea/
-*.iml
 .settings/
 .project
 .classpath
+
+# Chặn file cấu hình của IntelliJ IDEA
+.idea/
+*.iml
+
+# Chặn file cấu hình của NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+
+# Chặn các file tạm của hệ điều hành
+Thumbs.db
+.DS_Store
