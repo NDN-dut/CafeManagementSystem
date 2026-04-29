@@ -1,5 +1,6 @@
 package com.cafe.bll;
 
+import com.cafe.context.DbContext;
 import com.cafe.dal.ICategoryDAO;
 import com.cafe.dal.impl.CategoryRAMDAO;
 import com.cafe.model.Category;
@@ -23,4 +24,42 @@ public class CategoryBLL {
         }
         return new ArrayList<>();
     }
+    
+	public boolean add(String txt) {
+		try {
+			categoryDAO.insert(new Category(-1, txt));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean update(int id, String newName) {
+	    try {
+	        categoryDAO.update(new Category(id, newName));
+	        return true;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public boolean delete(int id) {
+		try {
+			categoryDAO.delete(id);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public List<Category> searchByName(String name) {
+		try {
+			return categoryDAO.searchByName(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

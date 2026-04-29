@@ -14,12 +14,28 @@ public class Category {
         this.products = new ArrayList<>();
     }
 
-    public void addProduct(Product p) {
-        this.products.add(p);
-    }
-
     // Getters
     public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int id) { this.categoryId = id; }
     public String getCategoryName() { return categoryName; }
-    public List<Product> getProducts() { return products; }
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+    
+    public void addProduct(Product product) {
+    	if (products != null && !products.contains(product)) {
+    		products.add(product);
+    	}
+    }
+    
+    public void removeProduct(Product product) {
+    	products.remove(product);
+    }
+
+	public List<Product> getProducts() {
+		return products;
+	}
+	
+	@Override
+    public String toString() {
+        return this.categoryName; // Để JComboBox hiển thị đúng tên danh mục
+    }
 }

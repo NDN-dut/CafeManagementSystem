@@ -29,7 +29,7 @@ public class TableRAMDAO implements ITableDAO {
             table.changeStatus(isOccupied); // Gọi logic GRASP trong Model
         }
     }
-
+    
     @Override
     public void insert(CafeTable entity) {
         context.tables.add(entity);

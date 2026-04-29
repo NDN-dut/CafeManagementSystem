@@ -4,6 +4,11 @@ import com.cafe.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cafe.model.CafeTable;
+import com.cafe.model.Category;
+import com.cafe.model.Order;
+import com.cafe.model.Product;
+
 public class DbContext {
     private static DbContext instance;
     public List<CafeTable> tables = new ArrayList<>();

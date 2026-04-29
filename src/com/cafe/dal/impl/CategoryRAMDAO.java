@@ -3,6 +3,8 @@ package com.cafe.dal.impl;
 import com.cafe.dal.ICategoryDAO;
 import com.cafe.model.Category;
 import com.cafe.context.DbContext;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryRAMDAO implements ICategoryDAO {
@@ -25,6 +27,7 @@ public class CategoryRAMDAO implements ICategoryDAO {
 
     @Override
     public void insert(Category entity) {
+    	entity.setCategoryId(context.categories.size() + 1);
         context.categories.add(entity);
     }
 
@@ -47,4 +50,16 @@ public class CategoryRAMDAO implements ICategoryDAO {
             }
         }
     }
+
+	@Override
+	public List<Category> searchByName(String name) {
+		List<Category> li = new ArrayList<Category>();
+		for (Category c : context.categories) {
+			if (c.getCategoryName().contains(name)) {
+				li.add(c);
+			}
+		}
+		return li;
+	}
+    
 }
