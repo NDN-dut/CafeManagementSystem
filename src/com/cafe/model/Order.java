@@ -41,4 +41,6 @@ public class Order {
     public List<OrderDetail> getDetails() { return details; }
     
     public void setPaid(boolean paid) { isPaid = paid; }
+
+    
 }
