@@ -15,9 +15,11 @@ public class TableRAMDAO implements ITableDAO {
 
     @Override
     public CafeTable findById(Integer id) {
-        return context.tables.stream()
-                .filter(t -> t.getTableId() == id)
-                .findFirst().orElse(null);
+        for (var table : context.tables) {
+            if (table.getTableId() == id.intValue())
+                return table;
+        }
+        return null;
     }
 
     @Override
@@ -27,24 +29,26 @@ public class TableRAMDAO implements ITableDAO {
             table.changeStatus(isOccupied); // Gọi logic GRASP trong Model
         }
     }
+    
+    @Override
+    public void insert(CafeTable entity) {
+        context.tables.add(entity);
+    }
 
-	@Override
-	public void insert(CafeTable entity) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void update(CafeTable entity) {
+        for (int i = 0; i < context.tables.size(); ++i) {
+            if (context.tables.get(i).getTableId() == entity.getTableId())
+                context.tables.set(i, entity);
+        }
+    }
 
-	@Override
-	public void update(CafeTable entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-    // Các hàm insert, update, delete làm tương tự với ArrayList...
+    @Override
+    public void delete(Integer id) {
+        for (int i = 0; i < context.tables.size(); ++i) {
+            if (context.tables.get(i).getTableId() == id.intValue()) {
+                context.tables.remove(i);
+            }
+        }
+    }
 }

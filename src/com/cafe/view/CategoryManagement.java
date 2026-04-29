@@ -20,10 +20,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CategoryManagement {
-	private JFrame frame;
+	private CategoryBLL categoryBLL = new CategoryBLL();
+	
+	private JFrame frmFormDanhMc;
 	private JTextField txtCategory;
 	private JTable table;
 	private DefaultTableModel model;
+	
 
 	/**
 	 * Launch the application.
@@ -33,7 +36,7 @@ public class CategoryManagement {
 			public void run() {
 				try {
 					CategoryManagement window = new CategoryManagement();
-					window.frame.setVisible(true);
+					window.frmFormDanhMc.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,48 +55,49 @@ public class CategoryManagement {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmFormDanhMc = new JFrame();
+		frmFormDanhMc.setTitle("Form Danh Mục");
+		frmFormDanhMc.setBounds(100, 100, 450, 300);
+		frmFormDanhMc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFormDanhMc.getContentPane().setLayout(null);
 		
 		txtCategory = new JTextField();
-		txtCategory.setBounds(289, 23, 135, 20);
-		frame.getContentPane().add(txtCategory);
+		txtCategory.setBounds(192, 24, 135, 20);
+		frmFormDanhMc.getContentPane().add(txtCategory);
 		txtCategory.setColumns(10);
 		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String txt = txtCategory.getText();
-				boolean check = CategoryBLL.getInstance().add(txt);
+				boolean check = categoryBLL.add(txt);
 				if (check)
-					JOptionPane.showMessageDialog(frame, "Successful");
+					JOptionPane.showMessageDialog(frmFormDanhMc, "Successful");
 				else 
-					JOptionPane.showMessageDialog(frame, "Failed");
+					JOptionPane.showMessageDialog(frmFormDanhMc, "Failed");
 				table.setModel(model);
 				model.setRowCount(0);
 				refresh();
 			}
 		});
-		btnAdd.setBounds(47, 230, 76, 22);
-		frame.getContentPane().add(btnAdd);
+		btnAdd.setBounds(102, 219, 76, 22);
+		frmFormDanhMc.getContentPane().add(btnAdd);
 		
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(135, 230, 76, 22);
-		frame.getContentPane().add(btnUpdate);
+		btnUpdate.setBounds(190, 219, 76, 22);
+		frmFormDanhMc.getContentPane().add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
-		btnDelete.setBounds(223, 230, 76, 22);
-		frame.getContentPane().add(btnDelete);
+		btnDelete.setBounds(278, 219, 76, 22);
+		frmFormDanhMc.getContentPane().add(btnDelete);
 		
-		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(311, 230, 85, 22);
-		frame.getContentPane().add(btnRefresh);
+		JButton btnRefresh = new JButton("Find");
+		btnRefresh.setBounds(339, 22, 85, 22);
+		frmFormDanhMc.getContentPane().add(btnRefresh);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 54, 412, 155);
-		frame.getContentPane().add(scrollPane);
+		frmFormDanhMc.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		
@@ -111,8 +115,8 @@ public class CategoryManagement {
 		table.setModel(model);
 		
 		JLabel lblNewLabel = new JLabel("Category Name");
-		lblNewLabel.setBounds(185, 26, 92, 14);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(88, 27, 92, 14);
+		frmFormDanhMc.getContentPane().add(lblNewLabel);
 	}
 	
 	public void refresh() {
