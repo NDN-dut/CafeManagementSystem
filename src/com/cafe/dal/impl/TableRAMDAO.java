@@ -44,6 +44,19 @@ public class TableRAMDAO implements ITableDAO {
     }
 
     @Override
+    public void insert(CafeTable entity) {
+        context.tables.add(entity);
+    }
+
+    @Override
+    public void update(CafeTable entity) {
+        for (int i = 0; i < context.tables.size(); ++i) {
+            if (context.tables.get(i).getTableId() == entity.getTableId())
+                context.tables.set(i, entity);
+        }
+    }
+
+    @Override
     public void delete(Integer id) {
         for (int i = 0; i < context.tables.size(); ++i) {
             if (context.tables.get(i).getTableId() == id.intValue()) {
