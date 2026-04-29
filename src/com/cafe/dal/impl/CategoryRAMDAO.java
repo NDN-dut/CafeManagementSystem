@@ -3,8 +3,11 @@ package com.cafe.dal.impl;
 import com.cafe.dal.ICategoryDAO;
 import com.cafe.model.Category;
 import com.cafe.context.DbContext;
+<<<<<<< HEAD
 
 import java.util.ArrayList;
+=======
+>>>>>>> a515068ebb5ee8dee012983ccc2523e5a5a7e892
 import java.util.List;
 
 public class CategoryRAMDAO implements ICategoryDAO {
@@ -27,7 +30,10 @@ public class CategoryRAMDAO implements ICategoryDAO {
 
     @Override
     public void insert(Category entity) {
+<<<<<<< HEAD
     	entity.setCategoryId(context.categories.size() + 1);
+=======
+>>>>>>> a515068ebb5ee8dee012983ccc2523e5a5a7e892
         context.categories.add(entity);
     }
 
@@ -50,6 +56,7 @@ public class CategoryRAMDAO implements ICategoryDAO {
             }
         }
     }
+<<<<<<< HEAD
 
 	@Override
 	public List<Category> searchByName(String name) {
@@ -62,4 +69,6 @@ public class CategoryRAMDAO implements ICategoryDAO {
 		return li;
 	}
     
+=======
+>>>>>>> a515068ebb5ee8dee012983ccc2523e5a5a7e892
 }

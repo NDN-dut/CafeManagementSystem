@@ -1,6 +1,9 @@
 package com.cafe.bll;
 
+<<<<<<< HEAD
 import com.cafe.context.DbContext;
+=======
+>>>>>>> a515068ebb5ee8dee012983ccc2523e5a5a7e892
 import com.cafe.dal.ICategoryDAO;
 import com.cafe.dal.impl.CategoryRAMDAO;
 import com.cafe.model.Category;
@@ -24,6 +27,7 @@ public class CategoryBLL {
         }
         return new ArrayList<>();
     }
+<<<<<<< HEAD
     
 	public boolean add(String txt) {
 		try {
@@ -63,3 +67,6 @@ public class CategoryBLL {
 		}
 	}
 }
+=======
+}
+>>>>>>> a515068ebb5ee8dee012983ccc2523e5a5a7e892

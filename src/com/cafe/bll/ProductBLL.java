@@ -20,6 +20,7 @@ public class ProductBLL {
     public Product getProductById(int id) {
         return productDAO.findById(id);
     }
+<<<<<<< HEAD
     
     public boolean add(Product p) {
         try {
@@ -59,4 +60,6 @@ public class ProductBLL {
 			return null;
 		}  
     }
+=======
+>>>>>>> a515068ebb5ee8dee012983ccc2523e5a5a7e892
 }
