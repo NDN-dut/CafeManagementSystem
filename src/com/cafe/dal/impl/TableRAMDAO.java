@@ -28,5 +28,23 @@ public class TableRAMDAO implements ITableDAO {
         }
     }
 
+	@Override
+	public void insert(CafeTable entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(CafeTable entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
     // Các hàm insert, update, delete làm tương tự với ArrayList...
 }
