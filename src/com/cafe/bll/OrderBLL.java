@@ -45,6 +45,7 @@ public class OrderBLL {
             existingDetail.setQuantity(newQty);
             // Lưu ý: Vì là RAM nên đối tượng trong List tự cập nhật,
             // nhưng nếu là SQL bạn sẽ cần gọi orderDAO.updateDetailQuantity(...)
+            orderDAO.updateDetailQuantity(order.getOrderId(), productId, newQty);
         } else {
             // Nếu chưa có: Tạo mới và thêm vào
             Product product = productDAO.findById(productId);
