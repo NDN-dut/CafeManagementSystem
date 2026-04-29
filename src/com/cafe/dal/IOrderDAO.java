@@ -14,4 +14,6 @@ public interface IOrderDAO extends IBaseDAO<Order, Integer> {
     
     // Thêm chi tiết món ăn (OrderDetail) vào hóa đơn
     void addDetail(int orderId, OrderDetail detail);
+
+    void updateDetailQuantity(int orderId, int productId, int qty);
 }
