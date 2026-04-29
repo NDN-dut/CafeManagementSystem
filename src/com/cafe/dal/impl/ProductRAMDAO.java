@@ -19,7 +19,7 @@ public class ProductRAMDAO implements IProductDAO {
     public List<Product> searchByName(String name) {
         List<Product> li = new ArrayList<>();
         for (var p : context.products) {
-            if (p.getProductName().equals(name))
+            if (p.getProductName().contains(name))
                 li.add(p);
         }
         return li;

@@ -20,4 +20,43 @@ public class ProductBLL {
     public Product getProductById(int id) {
         return productDAO.findById(id);
     }
+    
+    public boolean add(Product p) {
+        try {
+            productDAO.insert(p);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean update(Product p) {
+        try {
+            productDAO.update(p);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean delete(int id) {
+        try {
+            productDAO.delete(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public List<Product> searchByName(String name) {
+    	try {
+    		return productDAO.searchByName(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}  
+    }
 }

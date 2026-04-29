@@ -9,7 +9,7 @@ public class Product {
     public Product(int productId, String productName, double price, Category category) {
         this.productId = productId;
         this.productName = productName;
-        //this.price = price;
+//        this.price = price;
         this.setPrice(price);
         this.category = category;
     }
@@ -19,8 +19,15 @@ public class Product {
     public double getPrice() { return price; }
     public Category getCategory() { return category; }
     
-    public void setPrice(double price) {
-    	if (this.price > 0)
+    
+    public void setProductId(int productId) { this.productId = productId; }
+
+	public void setProductName(String productName) { this.productName = productName; }
+
+	public void setCategory(Category category) { this.category = category; }
+
+	public void setPrice(double price) {
+    	if (price > 0)
     		this.price = price;
     	else 
     		this.price = 0;

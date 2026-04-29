@@ -16,6 +16,7 @@ public class Category {
 
     // Getters
     public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int id) { this.categoryId = id; }
     public String getCategoryName() { return categoryName; }
     public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
     
@@ -32,4 +33,9 @@ public class Category {
 	public List<Product> getProducts() {
 		return products;
 	}
+	
+	@Override
+    public String toString() {
+        return this.categoryName; // Để JComboBox hiển thị đúng tên danh mục
+    }
 }
