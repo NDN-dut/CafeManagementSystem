@@ -27,6 +27,10 @@ public class DbContext {
     }
 
     private void seedData() {
+        // 0. Tạo Accounts
+        accounts.add(new Account(1, "admin", "admin123", Role.ADMIN));
+        accounts.add(new Account(2, "staff", "staff123", Role.STAFF));
+
         // 1. Tạo Category
         Category cafe = new Category(1, "Cà phê");
         Category tea = new Category(2, "Trà sữa");
