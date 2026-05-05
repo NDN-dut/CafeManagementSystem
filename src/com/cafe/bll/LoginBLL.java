@@ -2,9 +2,10 @@ package com.cafe.bll;
 
 import com.cafe.dal.impl.AccountDAOImpl;
 import com.cafe.model.Account;
+import com.cafe.model.Role;
+import com.cafe.view.AdminDashboardView;
 import com.cafe.view.LoginView;
-
-import javax.swing.*;
+import com.cafe.view.StaffDashboardView;
 
 public class LoginBLL {
     private LoginView view;
@@ -59,16 +60,13 @@ public class LoginBLL {
 
         view.showSuccess("Login successful! Welcome " + account.getUsername() + "!");
 
-        // Close login window and open main dashboard (placeholder)
+        // Close login window and open main screen
         view.dispose();
-
-        // TODO: Open MainDashboard or DashboardView based on user role
-        // Example:
-        // if (account.getRole() == Role.ADMIN) {
-        //     new AdminDashboard().setVisible(true);
-        // } else {
-        //     new StaffDashboard().setVisible(true);
-        // }
+        if (account.getRole() == Role.ADMIN) {
+            new AdminDashboardView(account).setVisible(true);
+        } else {
+            new StaffDashboardView(account).setVisible(true);
+        }
     }
 
     private void handleCancel() {
