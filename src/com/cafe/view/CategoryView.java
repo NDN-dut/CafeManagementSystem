@@ -200,4 +200,12 @@ public class CategoryView {
 		}
 		table.setModel(model);
 	}
+
+	public void setVisible(boolean visible) {
+		formDM.setVisible(visible);
+	}
+
+	public void setDefaultCloseOperation(int operation) {
+		formDM.setDefaultCloseOperation(operation);
+	}
 }
