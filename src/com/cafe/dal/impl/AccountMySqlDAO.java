@@ -57,8 +57,13 @@ public class AccountMySqlDAO implements IAccountDAO {
 
     @Override
     public void insert(Account account) {
-        String sql = "INSERT INTO accounts(account_id, username, password, role) VALUES (?, ?, ?, ?)";
-        db.executeUpdate(sql, account.getAccountId(), account.getUsername(), account.getPassword(), account.getRole().name());
+        if (account.getAccountId() > 0) {
+            String sql = "INSERT INTO accounts(account_id, username, password, role) VALUES (?, ?, ?, ?)";
+            db.executeUpdate(sql, account.getAccountId(), account.getUsername(), account.getPassword(), account.getRole().name());
+        } else {
+            String sql = "INSERT INTO accounts(username, password, role) VALUES (?, ?, ?)";
+            db.executeUpdate(sql, account.getUsername(), account.getPassword(), account.getRole().name());
+        }
     }
 
     @Override
