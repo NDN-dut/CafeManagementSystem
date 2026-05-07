@@ -1,13 +1,21 @@
 package com.cafe.bll;
 
 import com.cafe.dal.IProductDAO;
-import com.cafe.dal.impl.ProductRAMDAO;
+import com.cafe.dal.impl.ProductMySqlDAO;
 import com.cafe.model.Product;
+
 import java.util.List;
 
 public class ProductBLL {
-    // Khởi tạo đối tượng DAO (Dùng RAM implementation)
-    private IProductDAO productDAO = new ProductRAMDAO();
+    private IProductDAO productDAO;
+
+    public ProductBLL() {
+        this(new ProductMySqlDAO());
+    }
+
+    public ProductBLL(IProductDAO productDAO) {
+        this.productDAO = productDAO;
+    }
 
     public List<Product> getAllProducts() {
         return productDAO.findAll();
@@ -20,7 +28,7 @@ public class ProductBLL {
     public Product getProductById(int id) {
         return productDAO.findById(id);
     }
-    
+
     public boolean add(Product p) {
         try {
             productDAO.insert(p);
@@ -30,7 +38,7 @@ public class ProductBLL {
             return false;
         }
     }
-    
+
     public boolean update(Product p) {
         try {
             productDAO.update(p);
@@ -40,7 +48,7 @@ public class ProductBLL {
             return false;
         }
     }
-    
+
     public boolean delete(int id) {
         try {
             productDAO.delete(id);
@@ -50,13 +58,13 @@ public class ProductBLL {
             return false;
         }
     }
-    
+
     public List<Product> searchByName(String name) {
-    	try {
-    		return productDAO.searchByName(name);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}  
+        try {
+            return productDAO.searchByName(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -48,8 +48,13 @@ public class TableMySqlDAO implements ITableDAO {
 
     @Override
     public void insert(CafeTable table) {
-        String sql = "INSERT INTO cafe_tables(table_id, table_name, is_occupied) VALUES (?, ?, ?)";
-        db.executeUpdate(sql, table.getTableId(), table.getTableName(), table.isOccupied());
+        if (table.getTableId() > 0) {
+            String sql = "INSERT INTO cafe_tables(table_id, table_name, is_occupied) VALUES (?, ?, ?)";
+            db.executeUpdate(sql, table.getTableId(), table.getTableName(), table.isOccupied());
+        } else {
+            String sql = "INSERT INTO cafe_tables(table_name, is_occupied) VALUES (?, ?)";
+            db.executeUpdate(sql, table.getTableName(), table.isOccupied());
+        }
     }
 
     @Override

@@ -50,15 +50,26 @@ public class OrderMySqlDAO implements IOrderDAO {
 
     @Override
     public void insert(Order order) {
-        String sql = "INSERT INTO orders(order_id, table_id, account_id, order_date, is_paid) VALUES (?, ?, ?, ?, ?)";
-        db.executeUpdate(
-            sql,
-            order.getOrderId(),
-            getTableId(order),
-            getAccountId(order),
-            new Timestamp(order.getOrderDate().getTime()),
-            order.isPaid()
-        );
+        if (order.getOrderId() > 0) {
+            String sql = "INSERT INTO orders(order_id, table_id, account_id, order_date, is_paid) VALUES (?, ?, ?, ?, ?)";
+            db.executeUpdate(
+                sql,
+                order.getOrderId(),
+                getTableId(order),
+                getAccountId(order),
+                new Timestamp(order.getOrderDate().getTime()),
+                order.isPaid()
+            );
+        } else {
+            String sql = "INSERT INTO orders(table_id, account_id, order_date, is_paid) VALUES (?, ?, ?, ?)";
+            db.executeUpdate(
+                sql,
+                getTableId(order),
+                getAccountId(order),
+                new Timestamp(order.getOrderDate().getTime()),
+                order.isPaid()
+            );
+        }
 
         for (OrderDetail detail : order.getDetails()) {
             addDetail(order.getOrderId(), detail);
