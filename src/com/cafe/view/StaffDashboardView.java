@@ -1,6 +1,7 @@
 package com.cafe.view;
 
 import com.cafe.bll.LoginBLL;
+import com.cafe.context.SessionManager;
 import com.cafe.model.Account;
 
 import javax.swing.*;
@@ -57,6 +58,7 @@ public class StaffDashboardView extends JFrame {
     }
 
     private void logout() {
+        SessionManager.getInstance().logout();
         dispose();
         LoginView loginView = new LoginView();
         new LoginBLL(loginView);

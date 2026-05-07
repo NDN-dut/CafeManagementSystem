@@ -37,9 +37,12 @@ public class Order {
     // Getters
     public int getOrderId() { return orderId; }
     public CafeTable getTable() { return table; }
+    public Account getEmployee() { return employee; }
+    public Date getOrderDate() { return orderDate; }
     public boolean isPaid() { return isPaid; }
     public List<OrderDetail> getDetails() { return details; }
     
+    public void setOrderDate(Date orderDate) { this.orderDate = orderDate; }
     public void setPaid(boolean paid) { isPaid = paid; }
 
     

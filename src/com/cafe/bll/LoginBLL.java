@@ -1,6 +1,7 @@
 package com.cafe.bll;
 
 import com.cafe.dal.impl.AccountDAOImpl;
+import com.cafe.context.SessionManager;
 import com.cafe.model.Account;
 import com.cafe.model.Role;
 import com.cafe.view.AdminDashboardView;
@@ -53,6 +54,7 @@ public class LoginBLL {
         }
 
         // Login successful
+        SessionManager.getInstance().login(account);
         view.setLoginSuccessful(true);
         System.out.println("Login successful!");
         System.out.println("User: " + account.getUsername());

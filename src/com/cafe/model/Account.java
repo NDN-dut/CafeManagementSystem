@@ -21,6 +21,7 @@ public class Account {
     // Getters and Setters
     public int getAccountId() { return accountId; }
     public String getUsername() { return username; }
+    public String getPassword() { return password; }
     public Role getRole() { return role; }
     public void setPassword(String password) { this.password = password; }
 }
