@@ -14,8 +14,8 @@ public class AccountMySqlDAO implements IAccountDAO {
 
     @Override
     public Account findByUsername(String username) {
-        String sql = "SELECT * FROM accounts WHERE username = ?";
-        ResultSet rs = db.executeQuery(sql, username);
+        String sql = "SELECT * FROM accounts WHERE username LIKE ?";
+        ResultSet rs = db.executeQuery(sql, "%" +username+ "%");
         try {
             if (rs != null && rs.next()) {
                 return mapAccount(rs);
@@ -54,22 +54,36 @@ public class AccountMySqlDAO implements IAccountDAO {
         }
         return null;
     }
+    
+//    public List<String> getAllRoles() {
+//    	List<String> roles = new ArrayList<String>();
+//    	String sql = "SELECT distinct role FROM accounts";
+//    	ResultSet rs = DbHelper.getInstance().executeQuery(sql);
+//    	try {
+//            while (rs != null && rs.next()) {
+//                roles.add(mapAccount(rs));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    	return roles;
+//    }
 
     @Override
     public void insert(Account account) {
         if (account.getAccountId() > 0) {
-            String sql = "INSERT INTO accounts(account_id, username, password, role) VALUES (?, ?, ?, ?)";
-            db.executeUpdate(sql, account.getAccountId(), account.getUsername(), account.getPassword(), account.getRole().name());
+            String sql = "INSERT INTO accounts(account_id, username, password, role, status) VALUES (?, ?, ?, ?, ?)";
+            db.executeUpdate(sql, account.getAccountId(), account.getUsername(), account.getPassword(), account.getRole().name(), account.getStatus());
         } else {
-            String sql = "INSERT INTO accounts(username, password, role) VALUES (?, ?, ?)";
-            db.executeUpdate(sql, account.getUsername(), account.getPassword(), account.getRole().name());
+            String sql = "INSERT INTO accounts(username, password, role, status) VALUES (?, ?, ?, ?)";
+            db.executeUpdate(sql, account.getUsername(), account.getPassword(), account.getRole().name(), account.getStatus());
         }
     }
 
     @Override
     public void update(Account account) {
-        String sql = "UPDATE accounts SET username = ?, password = ?, role = ? WHERE account_id = ?";
-        db.executeUpdate(sql, account.getUsername(), account.getPassword(), account.getRole().name(), account.getAccountId());
+        String sql = "UPDATE accounts SET username = ?, password = ?, role = ?, status = ? WHERE account_id = ?";
+        db.executeUpdate(sql, account.getUsername(), account.getPassword(), account.getRole().name(), account.getStatus(), account.getAccountId());
     }
 
     @Override
@@ -91,7 +105,8 @@ public class AccountMySqlDAO implements IAccountDAO {
             rs.getInt("account_id"),
             rs.getString("username"),
             rs.getString("password"),
-            Role.valueOf(rs.getString("role"))
+            Role.valueOf(rs.getString("role")),
+            rs.getBoolean("status")
         );
     }
 }
