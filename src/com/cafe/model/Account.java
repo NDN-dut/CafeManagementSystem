@@ -5,12 +5,22 @@ public class Account {
     private String username;
     private String password;
     private Role role;
-
+    private boolean status;
+    
     public Account(int accountId, String username, String password, Role role) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.status = true;
+    }
+
+    public Account(int accountId, String username, String password, Role role, boolean status) {
+        this.accountId = accountId;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.status = status;
     }
 
     // GRASP: Tự xác thực mật khẩu
@@ -24,4 +34,13 @@ public class Account {
     public String getPassword() { return password; }
     public Role getRole() { return role; }
     public void setPassword(String password) { this.password = password; }
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+    
 }

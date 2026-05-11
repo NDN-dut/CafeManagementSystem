@@ -42,8 +42,13 @@ public class CategoryMySqlDAO implements ICategoryDAO {
 
     @Override
     public void insert(Category category) {
-        String sql = "INSERT INTO categories(category_id, category_name) VALUES (?, ?)";
-        db.executeUpdate(sql, category.getCategoryId(), category.getCategoryName());
+        if (category.getCategoryId() > 0) {
+            String sql = "INSERT INTO categories(category_id, category_name) VALUES (?, ?)";
+            db.executeUpdate(sql, category.getCategoryId(), category.getCategoryName());
+        } else {
+            String sql = "INSERT INTO categories(category_name) VALUES (?)";
+            db.executeUpdate(sql, category.getCategoryName());
+        }
     }
 
     @Override

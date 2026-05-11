@@ -1,7 +1,8 @@
 package com.cafe.bll;
 
-import com.cafe.dal.impl.AccountDAOImpl;
 import com.cafe.context.SessionManager;
+import com.cafe.dal.IAccountDAO;
+import com.cafe.dal.impl.AccountMySqlDAO;
 import com.cafe.model.Account;
 import com.cafe.model.Role;
 import com.cafe.view.AdminDashboardView;
@@ -10,11 +11,15 @@ import com.cafe.view.StaffDashboardView;
 
 public class LoginBLL {
     private LoginView view;
-    private AccountDAOImpl accountDAO;
+    private IAccountDAO accountDAO;
 
     public LoginBLL(LoginView view) {
+        this(view, new AccountMySqlDAO());
+    }
+
+    public LoginBLL(LoginView view, IAccountDAO accountDAO) {
         this.view = view;
-        this.accountDAO = new AccountDAOImpl();
+        this.accountDAO = accountDAO;
         initializeEventHandlers();
     }
 
@@ -45,9 +50,9 @@ public class LoginBLL {
         }
 
         // Authenticate user
-        Account account = accountDAO.authenticate(username, password);
+        Account account = accountDAO.findByUsername(username);
 
-        if (account == null) {
+        if (account == null || !account.verifyPassword(password)) {
             view.showError("Invalid username or password");
             view.clearFields();
             return;

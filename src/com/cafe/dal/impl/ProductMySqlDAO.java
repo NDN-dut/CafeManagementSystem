@@ -74,8 +74,13 @@ public class ProductMySqlDAO implements IProductDAO {
 
     @Override
     public void insert(Product product) {
-        String sql = "INSERT INTO products(product_id, product_name, price, category_id) VALUES (?, ?, ?, ?)";
-        db.executeUpdate(sql, product.getProductId(), product.getProductName(), product.getPrice(), getCategoryId(product));
+        if (product.getProductId() > 0) {
+            String sql = "INSERT INTO products(product_id, product_name, price, category_id) VALUES (?, ?, ?, ?)";
+            db.executeUpdate(sql, product.getProductId(), product.getProductName(), product.getPrice(), getCategoryId(product));
+        } else {
+            String sql = "INSERT INTO products(product_name, price, category_id) VALUES (?, ?, ?)";
+            db.executeUpdate(sql, product.getProductName(), product.getPrice(), getCategoryId(product));
+        }
     }
 
     @Override
