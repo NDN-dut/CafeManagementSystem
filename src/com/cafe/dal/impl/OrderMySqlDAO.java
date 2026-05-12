@@ -139,13 +139,24 @@ public class OrderMySqlDAO implements IOrderDAO {
         Order order = new Order(rs.getInt("order_id"), table, employee);
 
         // --- SỬA ĐOẠN NÀY ĐỂ TRÁNH LỖI CLASSCAST ---
+     // Lấy Object ra để tránh lỗi ép kiểu ngầm của CachedRowSet
         Object dateObj = rs.getObject("order_date");
-        if (dateObj instanceof java.time.LocalDateTime) {
-            // Chuyển từ LocalDateTime sang java.sql.Timestamp (vẫn tương thích với java.util.Date)
-            order.setOrderDate(java.sql.Timestamp.valueOf((java.time.LocalDateTime) dateObj));
-        } else {
-            // Trường hợp Driver trả về Timestamp hoặc các kiểu cũ khác
-            order.setOrderDate(rs.getTimestamp("order_date"));
+
+        if (dateObj != null) {
+            if (dateObj instanceof java.time.LocalDateTime) {
+                // Nếu MySQL trả về LocalDateTime
+                order.setOrderDate(java.sql.Timestamp.valueOf((java.time.LocalDateTime) dateObj));
+            } else if (dateObj instanceof java.sql.Timestamp) {
+                // Nếu đã là Timestamp sẵn
+                order.setOrderDate((java.sql.Timestamp) dateObj);
+            } else {
+                // Fallback an toàn cho các kiểu dữ liệu khác (String, Date...)
+                try {
+                    order.setOrderDate(java.sql.Timestamp.valueOf(dateObj.toString()));
+                } catch (IllegalArgumentException ex) {
+                    System.err.println("Không thể parse ngày tháng: " + dateObj);
+                }
+            }
         }
         // ------------------------------------------
 
