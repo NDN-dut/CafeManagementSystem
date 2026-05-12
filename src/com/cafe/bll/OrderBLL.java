@@ -13,6 +13,9 @@ import com.cafe.model.Order;
 import com.cafe.model.OrderDetail;
 import com.cafe.model.Product;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class OrderBLL {
     private IOrderDAO orderDAO;
     private ITableDAO tableDAO;
@@ -32,10 +35,12 @@ public class OrderBLL {
         Order currentOrder = orderDAO.findUnpaidOrderByTable(tableId);
         if (currentOrder == null) {
             CafeTable table = tableDAO.findById(tableId);
-            Account employee = SessionManager.getInstance().getCurrentAccount();
-            currentOrder = new Order(0, table, employee);
+            Account currentStaff = com.cafe.context.SessionManager.getInstance().getCurrentAccount();
+
+            // Đặt ID là 0 để MySQL AUTO_INCREMENT tự làm việc
+            currentOrder = new Order(0, table, currentStaff);
+
             orderDAO.insert(currentOrder);
-            currentOrder = orderDAO.findUnpaidOrderByTable(tableId);
             tableDAO.updateStatus(tableId, true);
         }
         return currentOrder;
@@ -66,5 +71,30 @@ public class OrderBLL {
     public void confirmPayment(int orderId, int tableId) {
         orderDAO.updatePaymentStatus(orderId, true);
         tableDAO.updateStatus(tableId, false);
+    }
+
+    public void printInvoice(Order order) {
+        try {
+            // Tạo nội dung hóa đơn bằng cách cộng chuỗi đơn giản
+            String content = "--- HOA DON CAFE ---\n";
+            content += "Ma HD: " + order.getOrderId() + "\n";
+            content += "Ban: " + order.getTable().getTableName() + "\n";
+            content += "Nhan vien: " + order.getEmployee().getUsername() + "\n";
+            content += "--------------------\n";
+
+            for (OrderDetail detail : order.getDetails()) {
+                content += detail.getProduct().getProductName() + " x" + detail.getQuantity()
+                        + " : " + detail.calculateSubTotal() + " VND\n";
+            }
+
+            content += "--------------------\n";
+            content += "TONG CONG: " + order.calculateTotal() + " VND\n";
+
+            // Ghi trực tiếp chuỗi vào file (Tên file theo mã hóa đơn)
+            Files.write(Paths.get("HoaDon_" + order.getOrderId() + ".txt"), content.getBytes());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

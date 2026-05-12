@@ -137,7 +137,18 @@ public class OrderMySqlDAO implements IOrderDAO {
         CafeTable table = tableDAO.findById(rs.getInt("table_id"));
         Account employee = accountDAO.findById(rs.getInt("account_id"));
         Order order = new Order(rs.getInt("order_id"), table, employee);
-        order.setOrderDate(rs.getTimestamp("order_date"));
+
+        // --- SỬA ĐOẠN NÀY ĐỂ TRÁNH LỖI CLASSCAST ---
+        Object dateObj = rs.getObject("order_date");
+        if (dateObj instanceof java.time.LocalDateTime) {
+            // Chuyển từ LocalDateTime sang java.sql.Timestamp (vẫn tương thích với java.util.Date)
+            order.setOrderDate(java.sql.Timestamp.valueOf((java.time.LocalDateTime) dateObj));
+        } else {
+            // Trường hợp Driver trả về Timestamp hoặc các kiểu cũ khác
+            order.setOrderDate(rs.getTimestamp("order_date"));
+        }
+        // ------------------------------------------
+
         order.setPaid(rs.getBoolean("is_paid"));
 
         for (OrderDetail detail : findDetailsByOrderId(order.getOrderId())) {

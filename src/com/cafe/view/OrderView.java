@@ -158,12 +158,15 @@ public class OrderView extends JDialog {
                             "\nTổng tiền: " + total + " VNĐ\nXác nhận thanh toán?",
                     "Xác nhận", JOptionPane.YES_NO_OPTION);
 
-            if(confirm == JOptionPane.YES_OPTION) {
-                // Gọi BLL xử lý nghiệp vụ
+            if (confirm == JOptionPane.YES_OPTION) {
+                // 1. Lưu xuống database
                 orderBLL.confirmPayment(currentOrder.getOrderId(), currentTableId);
 
-                JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
-                this.dispose(); // Đóng cửa sổ Order
+                // 2. In hóa đơn ra file text
+                orderBLL.printInvoice(currentOrder);
+
+                JOptionPane.showMessageDialog(this, "Thanh toan xong! Da luu file HoaDon_" + currentOrder.getOrderId() + ".txt");
+                this.dispose();
             }
         });
     }

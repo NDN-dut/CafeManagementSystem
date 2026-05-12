@@ -15,7 +15,8 @@ CREATE TABLE accounts (
     account_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
-    role ENUM('ADMIN', 'STAFF') NOT NULL
+    role ENUM('ADMIN', 'STAFF') NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE -- THÊM DÒNG NÀY
 );
 
 CREATE TABLE categories (
@@ -77,9 +78,10 @@ CREATE TABLE order_details (
         ON DELETE RESTRICT
 );
 
-INSERT INTO accounts (account_id, username, password, role) VALUES
-(1, 'admin', 'admin123', 'ADMIN'),
-(2, 'staff', 'staff123', 'STAFF');
+-- 2. Sửa lại dữ liệu mẫu (thêm giá trị TRUE cho status)
+INSERT INTO accounts (account_id, username, password, role, status) VALUES
+(1, 'admin', 'admin123', 'ADMIN', TRUE),
+(2, 'staff', 'staff123', 'STAFF', TRUE);
 
 INSERT INTO categories (category_id, category_name) VALUES
 (1, 'Ca phe'),
