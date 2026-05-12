@@ -24,3 +24,6 @@ nbactions.xml
 # Chặn các file tạm của hệ điều hành
 Thumbs.db
 .DS_Store
+
+# Chặn tất cả các file hóa đơn kết quả
+HoaDon_*.txt
