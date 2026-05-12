@@ -29,20 +29,23 @@ public class AdminDashboardView extends JFrame {
         lblTitle.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
         add(lblTitle, BorderLayout.NORTH);
 
-        JPanel panelCenter = new JPanel(new GridLayout(3, 1, 12, 12));
+        JPanel panelCenter = new JPanel(new GridLayout(4, 1, 12, 12));
         panelCenter.setBorder(BorderFactory.createEmptyBorder(15, 70, 15, 70));
 
         JButton btnCategory = createMenuButton("Quan ly danh muc");
         JButton btnProduct = createMenuButton("Quan ly san pham");
         JButton btnTableOrder = createMenuButton("Quan ly ban va dat mon");
+        JButton btnAccount = createMenuButton("Quan ly tai khoan"); 
 
         btnCategory.addActionListener(e -> openCategoryView());
         btnProduct.addActionListener(e -> openProductView());
         btnTableOrder.addActionListener(e -> openTableManagerView());
+        btnAccount.addActionListener(e -> openAccountView());
 
         panelCenter.add(btnCategory);
         panelCenter.add(btnProduct);
         panelCenter.add(btnTableOrder);
+        panelCenter.add(btnAccount);
         add(panelCenter, BorderLayout.CENTER);
 
         JPanel panelBottom = new JPanel(new BorderLayout());
@@ -81,6 +84,12 @@ public class AdminDashboardView extends JFrame {
         TableManagerView tableManagerView = new TableManagerView();
         tableManagerView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tableManagerView.setVisible(true);
+    }
+    
+    private void openAccountView() {
+        AccountView accountView = new AccountView();
+        accountView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        accountView.setVisible(true);
     }
 
     private void logout() {
