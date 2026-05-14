@@ -75,7 +75,6 @@ public class OrderBLL {
 
     public void printInvoice(Order order) {
         try {
-            // Tạo nội dung hóa đơn bằng cách cộng chuỗi đơn giản
             String content = "--- HOA DON CAFE ---\n";
             content += "Ma HD: " + order.getOrderId() + "\n";
             content += "Ban: " + order.getTable().getTableName() + "\n";
