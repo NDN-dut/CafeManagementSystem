@@ -27,17 +27,17 @@ public class DbContext {
     }
 
     private void seedData() {
-        // 0. Tạo Accounts
+        // Tạo Accounts
         accounts.add(new Account(1, "admin", "admin123", Role.ADMIN, true));
         accounts.add(new Account(2, "staff", "staff123", Role.STAFF, true));
 
-        // 1. Tạo Category
+        // Tạo Category
         Category cafe = new Category(1, "Cà phê");
         Category tea = new Category(2, "Trà sữa");
         categories.add(cafe);
         categories.add(tea);
 
-        // 2. Tạo Product và thêm vào Category tương ứng
+        // Tạo Product và thêm vào Category tương ứng
         Product p1 = new Product(1, "Cà phê Đen", 20000, cafe);
         Product p2 = new Product(2, "Cà phê Sữa", 25000, cafe);
         cafe.addProduct(p1);
@@ -46,7 +46,7 @@ public class DbContext {
         Product p3 = new Product(3, "Trà sữa Trân châu", 35000, tea);
         tea.addProduct(p3);
 
-        // 3. Tạo Bàn
+        // Tạo Bàn
         for (int i = 1; i <= 10; i++) {
             tables.add(new CafeTable(i, "Bàn " + i));
         }
