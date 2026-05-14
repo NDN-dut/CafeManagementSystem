@@ -4,7 +4,7 @@ import com.cafe.model.CafeTable;
 import com.cafe.model.Order;
 import com.cafe.model.OrderDetail;
 
-// B. Quản lý Bàn & Đặt món (Thành viên 2)
+// Quản lý Bàn & Đặt món
 public interface IOrderDAO extends IBaseDAO<Order, Integer> {
     // Tìm hóa đơn chưa thanh toán của một bàn
     Order findUnpaidOrderByTable(int tableId);
