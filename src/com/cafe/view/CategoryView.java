@@ -133,7 +133,7 @@ public class CategoryView {
 		        }
 		        
 		        // Lấy id từ dòng được chọn
-		        int id = (int) table.getValueAt(selectedRow, 0);
+		        int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
 		        int confirmResult = JOptionPane.showConfirmDialog(formDM, "Bạn có chắc chắn muốn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 		        
 		        if (confirmResult == JOptionPane.YES_OPTION) {
