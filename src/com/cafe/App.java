@@ -6,9 +6,6 @@ import com.cafe.view.LoginView;
 
 public class App {
     public static void main(String[] args) {
-        // Initialize database context (includes default accounts)
-        DbContext.getInstance();
-
         // Create and display login view
         LoginView loginView = new LoginView();
         new LoginBLL(loginView);
